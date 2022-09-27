@@ -1,0 +1,51 @@
+
+.Menu {
+    overflow: hidden;
+    display: flex;
+    justify-content: stretch;
+}
+
+.no-allow-overflow {
+    overflow: hidden;
+}
+
+.grid-container {
+    flex-grow: 2;
+
+    width: 120vw;
+    height: 100vh;
+
+    transition: margin-left .3s;
+}
+
+.grid-container > * {
+    float: left;
+    height: 100%;
+}
+
+.grid-container.moved {
+    margin-left: -24vw;
+}
+
+.Menu > div {
+    height: 100vh;
+}
+
+.column-title {
+    padding: 24px 0 24px 24px;
+    height: 120px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.content {
+    padding: 0 24px;
+}
+
+.content p {
+    margin: 12px 0;
+    padding: 6px 0;
+    line-height: 36px;
+}

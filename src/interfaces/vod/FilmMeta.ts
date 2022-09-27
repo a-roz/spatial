@@ -1,0 +1,15 @@
+export default interface IFilmMeta {
+    cmd                     : string,
+    screenshot_uri          : string,
+    director                : string,
+    actors                  : string,
+    year                    : string,
+    time                    : string,
+    kinopoisk_id            : string,
+    rating_kinopoisk        : string,
+    rating_imdb             : string,
+    age                     : string,
+    rating_mpaa             : string,
+    genres_str              : string,
+    country                 : string,
+}

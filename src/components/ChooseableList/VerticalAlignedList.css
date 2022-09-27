@@ -1,0 +1,30 @@
+
+.vertical-list-container {
+    overflow: hidden;
+}
+
+.vertical-aligned-list {
+    width: 100%;
+    margin-top: calc(50vh - 140px);
+    transition: all 0.3s ease 0s;
+}
+
+.vertical-aligned-list li {
+    height: 80px;
+}
+
+.vertical-aligned-list a {
+    display: block;
+    padding: 16px;
+}
+
+.vertical-aligned-list a:hover {
+    background-color: #fff1;
+}
+.capitalize {
+    text-transform: capitalize;
+}
+
+.vertical-aligned-list>li:empty:before {
+    background-color: inherit !important;
+}

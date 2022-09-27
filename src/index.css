@@ -1,13 +1,66 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* :root {
+    --red-hightlighter: #b71c1c;
+    --white-hightlighter: #fff2;
+} */
+
+@font-face {
+    font-family: SegoeUI;
+    src:
+            local("Segoe UI"),
+            url(resourses/segoe.woff2) format("woff2"),
+            url(resourses/segoe.woff) format("woff"),
+            url(resourses/segoe.ttf) format("truetype");
+    font-weight: 400;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'SegoeUI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight: normal !important;
+    box-sizing: border-box;
+    color: #f5f5f5;
+}
+
+html {
+    font-size: 36px;
+}
+
+h3 {
+    font-weight: bold !important;
+    font-size: 42px;
+}
+
+h3 * {
+    font-weight: bold !important;
+    font-size: 42px;
+}
+
+h4 {
+    font-size: 42px;
+    font-weight: normal !important;
+}
+
+button {
+    font-size: 32px;
+}
+
+select {
+    font-size: 34px;
+}
+
+input {
+    font-size: 34px;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.font-weight-bold {
+    font-weight: bold !important;
 }
