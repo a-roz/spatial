@@ -57,6 +57,7 @@ export default function MenuContainer() {
                     <Route path="/tv"        element={<div>TV</div>}        />
                     <Route path="/film"      element={<div>FILM</div>}      />
                     <Route path="/settings"  element={<div>SETTINGS</div>}  />
+                    <Route path="/exit"      element={<div>EXIT</div>}  />
                 </Routes>
             </div>
         </div>

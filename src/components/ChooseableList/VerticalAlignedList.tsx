@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useFocusable } from "@noriginmedia/norigin-spatial-navigation";
 
 import './VerticalAlignedList.css';
@@ -8,9 +8,13 @@ const HEIGHT_LI = 80;
 const CENTER_WINDOW = 0.5 * window.innerHeight - 140;
 
 export default function VerticalAlignedList(props : {
+    navKey              : string,
     redHighlighter?     : boolean,
     activeIndex         : number,
     handleChangeActive  : (index : number) => void,
+
+    handleSetFocus      : (key: string) => void,
+
     onActiveClick?      : () => void,
     children            : JSX.Element[],
     className?          : string,
@@ -29,12 +33,17 @@ export default function VerticalAlignedList(props : {
     const styleUl = {marginTop: `${marginTopUl()}px`};
     const styleDiv = {paddingTop: `${paddingTopDiv()}px`};
 
-    const handleClick = (index: number) => {
+    const handleClick = (index: number, focusKey: string) => {
+        console.log(`handleClick(${index}, ${focusKey})`);
+
+        props.handleSetFocus(focusKey);
+/*
         if (index === props.activeIndex && props.redHighlighter &&
             typeof props.onActiveClick === 'function') {
             props.onActiveClick();
         }
-        props.handleChangeActive(index);
+*/
+//        if (index !== props.activeIndex) props.handleChangeActive(index);
     }
 
     const emptyLiElements = () => {
@@ -50,23 +59,57 @@ export default function VerticalAlignedList(props : {
         return index >= props.activeIndex - HALF_LI_COUNT && index <= props.activeIndex + HALF_LI_COUNT
     }
 
-    const LiElement = (props : any) => {
-        const { ref, focused } = useFocusable({onFocus: () => { props.onFocus(props.index as number) } });
-        return <li ref={ref}
+    /* =======================================================
+        list element object
+     ======================================================= */
+    const LiElement = (props : {
+        index: number
+        navKey: string
+        onElementFocus: (i: number) => void
+        element: JSX.Element
+    }) => {
+
+        const { ref, focused, focusKey } = useFocusable({
+            focusKey: `${props.navKey}${props.index}`,
+            onFocus: () => { console.log(`onFocus(${props.index})`); ref.current.click(); props.onElementFocus(props.index) },
+            onEnterPress: () => { console.log(`onEnterPress(${props.index})`); (ref.current).click() },
+        });
+
+        const InnerElement = React.forwardRef<HTMLAnchorElement>((props:any, ref) => (
+            <li
+                key={props.index}
+                className={ focused? activeClassName : undefined  }
+            >
+                {props.element}
+
+            </li>
+        ));
+
+        return (
+
+            <li ref={ref}
                    key={props.index}
-                   className={ focused? activeClassName /*props.index === props.activeIndex ? activeClassName*/ : undefined  }
-                   onClick={handleClick.bind(null, props.index)}
-        >{props.element}
+                   className={ focused? activeClassName  : undefined  }
+                   onClick={() => console.log(`LI CLICK !`) }
+/*
+                   onClick={handleClick.bind(null, props.index, focusKey)}
+*/
+
+        >
+                {props.element}
         </li>
+
+        )
     }
 
     const elements = [...emptyLiElements(), ...props.children.map((element, index: number) => {
         return isIndexInDisplayedArea(index)
             ? LiElement({
                 index,
-                activeIndex: props.activeIndex,
-                onFocus: props.handleChangeActive,
-                element
+                element,
+                navKey: props.navKey,
+                onElementFocus: props.handleChangeActive,
+//                onClick: props.handleChangeActive,
             })
             : null
     })];

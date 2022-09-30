@@ -15,6 +15,7 @@ import IRouteAndComponent       from '../../interfaces/settings/RouteAndComponen
 import {useFocusable, FocusContext } from "@noriginmedia/norigin-spatial-navigation";
 import styled from "styled-components";
 import NoriginMenu,{MenuItem} from "../NoriginMenu/NoriginMenu";
+import {isEmpty} from "../../utils";
 
 
 export default function TopMenu(props : {
@@ -114,7 +115,7 @@ export default function TopMenu(props : {
         ... !props.videoClubEnabled? [] :
       [ {route: '/film',        title: t('film.menuTitle'),     component: <symbols.Film/>      } ],
         {route: '/settings',    title: t('settings.menuTitle'), component: <symbols.Settings/>  },
-        {route: '/exit',        title: t('exit.menuTitle'),     component: <symbols.Exit/>      },
+        {route: '/exit',        title: t('exit.menuTitle')+` ${activeIndex}`,     component: <symbols.Exit/>      },
 
     ];
 
@@ -140,13 +141,13 @@ export default function TopMenu(props : {
         ref,
         focusSelf,
         hasFocusedChild,
-        focusKey
-        // setFocus, -- to set focus manually to some focusKey
+        focusKey,
+        setFocus,            // -- to set focus manually to some focusKey
         // navigateByDirection, -- to manually navigate by direction
-        // pause, -- to pause all navigation events
-        // resume, -- to resume all navigation events
-        // updateAllLayouts, -- to force update all layouts when needed
-        // getCurrentFocusKey -- to get the current focus key
+        // pause,               -- to pause all navigation events
+        // resume,              -- to resume all navigation events
+        // updateAllLayouts,    -- to force update all layouts when needed
+        // getCurrentFocusKey   -- to get the current focus key
     } = useFocusable({
         focusable: true,
         saveLastFocusedChild: true,
@@ -175,19 +176,32 @@ export default function TopMenu(props : {
     /*
             <NoriginMenu focusKey={"TOP_MENU"} />
     */
+
+    const handleChangeActive = (index: number) => {
+        console.log(`handleChangeActive(${index})`);
+        changeActiveIndex(index);
+    }
+
+    const handleSetFocus = (key: string) => {
+        console.log(`handleSetFocus(${key})`);
+        setFocus(key);
+    }
+
     return (
         <FocusContext.Provider value={focusKey}>
             <Sidebar ref={ref} className={`top-menu ${ hasFocusedChild /*isMenuOpen || (activeIndex === indexOfExit)*/ ? 'active' : ''}`}>
                 <VerticalAlignedList
+                    navKey             = { "TOP_MENU_" }
                     redHighlighter     = { isMenuOpen  }
                     activeIndex        = { activeIndex }
-                    handleChangeActive = { changeActiveIndex }
+                    handleChangeActive = { handleChangeActive }
+
+                    handleSetFocus     = { handleSetFocus }
+
                     onActiveClick      = { () => {} } >
                     {
                         menuLinks.map((el : IRouteAndComponent, i : number) =>
-                            <Link   to  = { (rootPath === el.route) ? path: el.route }
-                                    key = { el.route }
-                            >
+                            <Link   to  = { (rootPath === el.route) ? path: el.route } key = { el.route } >
                                 { el.component}
                                 <span>{ el.title }</span>
                             </Link>
