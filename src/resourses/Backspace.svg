@@ -1,0 +1,6 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+<path style="stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;fill:white;fill-opacity:0.2"
+  d="M 1,20 10,7 H 39 V 33 H 10 L 1,20"/>
+<path style="stroke:white;stroke-width:3;stroke-linecap:round" d="M 32,25 22,15"/>
+<path style="stroke:white;stroke-width:3;stroke-linecap:round" d="M 32,15 22,25"/>
+</svg>
